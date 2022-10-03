@@ -1,6 +1,11 @@
-const CourseCard = ({ course }) => {
+import './CourseCard.css'
+
+const CourseCard = ({ id, course, selected, toggleSelected }) => {
   return (
-    <div className="card m-1 p-2">
+    <div
+      className={`card m-1 p-2 ${selected.includes(id) ? "selected" : ""}`}
+      onClick={() => toggleSelected(id)}
+    >
       <div className="card-body">
         <h3 className="card-title">
           {course.term} CS {course.number}

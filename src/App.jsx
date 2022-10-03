@@ -3,42 +3,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Banner from "./components/Banner";
 import CourseList from "./components/CourseList";
+import TermSelector from "./components/TermSelector"
+
 import { useJsonQuery } from "./utilities/fetch";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function App() {
-  const terms = ["Fall", "Winter", "Spring"];
   const [selection, setSelection] = useState("Fall");
-
-  const TermButton = ({ term, selection, setSelection }) => (
-    <div>
-      <input
-        type="radio"
-        id={term}
-        className="btn-check"
-        checked={term === selection}
-        autoComplete="off"
-        onChange={() => setSelection(term)}
-      />
-      <label className="btn btn-success mb-1 p-2" htmlFor={term}>
-        {term}
-      </label>
-    </div>
-  );
-
-  const TermSelector = ({ selection, setSelection }) => (
-    <div className="btn-group">
-      {terms.map((term) => (
-        <TermButton
-          key={term}
-          term={term}
-          selection={selection}
-          setSelection={setSelection}
-        />
-      ))}
-    </div>
-  );
+  const [selected, setSelected] = useState([])
+  const toggleSelected = (course) => setSelected(
+    selected.includes(course)
+    ? selected.filter(x => x !== course)
+    : [...selected, course]
+  )
 
   const Main = () => {
     const [data, isLoading, error] = useJsonQuery([
@@ -53,7 +31,7 @@ export default function App() {
       <div className="m-3">
         <Banner title={data.title} />
         <TermSelector selection={selection} setSelection={setSelection} />
-        <CourseList term={selection} courses={data.courses} />
+        <CourseList term={selection} courses={data.courses} selected={selected} toggleSelected={toggleSelected} />
       </div>
     );
   };
