@@ -2,4 +2,5 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 15rem);
   border-color: brown;
+  justify-content: space-between;
 }

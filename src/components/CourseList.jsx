@@ -2,7 +2,6 @@ import CourseCard from "./CourseCard";
 import "./CourseList.css";
 
 const CourseList = ({ term, courses, selected, toggleSelected }) => {
-  // console.log(selected);
   return (
     <div className="course-list">
       {Object.entries(courses).map(
