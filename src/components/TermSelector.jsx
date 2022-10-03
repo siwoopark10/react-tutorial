@@ -2,7 +2,7 @@ export default function TermSelector({ selection, setSelection }) {
   const terms = ["Fall", "Winter", "Spring"];
 
   const TermButton = ({ term, selection, setSelection }) => (
-    <div>
+    <div className="m-1">
       <input
         type="radio"
         id={term}
