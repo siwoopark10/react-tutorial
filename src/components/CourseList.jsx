@@ -1,7 +1,8 @@
-import CourseCard from "./CourseCard";
 import "./CourseList.css";
 
-const CourseList = ({ term, courses, selected, toggleSelected }) => {
+import CourseCard from "./CourseCard";
+
+const CourseList = ({ term, courses, selected, toggleSelected, conflicts }) => {
   return (
     <div className="course-list">
       {Object.entries(courses).map(
@@ -13,6 +14,7 @@ const CourseList = ({ term, courses, selected, toggleSelected }) => {
               course={course}
               selected={selected}
               toggleSelected={toggleSelected}
+              conflicts={conflicts}
             />
           )
       )}

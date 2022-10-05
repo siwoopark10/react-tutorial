@@ -1,10 +1,12 @@
-import './CourseCard.css'
+import "./CourseCard.css";
 
-const CourseCard = ({ id, course, selected, toggleSelected }) => {
+const CourseCard = ({ id, course, selected, toggleSelected, conflicts }) => {
   return (
     <div
-      className={`card m-1 p-2 ${selected.includes(id) ? "selected" : ""}`}
-      onClick={() => toggleSelected(id)}
+      className={`card m-1 p-2 ${selected.includes(id) ? "selected" : ""} ${
+        conflicts.includes(id) ? "conflict" : ""
+      }`}
+      onClick={() => !conflicts.includes(id) && toggleSelected(id)}
     >
       <div className="card-body">
         <h3 className="card-title">
