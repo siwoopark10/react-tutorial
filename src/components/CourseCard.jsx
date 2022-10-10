@@ -10,18 +10,18 @@ const CourseCard = ({ id, course, selected, toggleSelected, conflicts }) => {
       }`}
       onClick={() => !conflicts.includes(id) && toggleSelected(id)}
     >
-      <div className="card-body">
+      <div className="card-body pb-0">
         <h3 className="card-title">
           {course.term} CS {course.number}
         </h3>
         <p className="card-text">{course.title}</p>
+        <div className="card-link">
+          <Link to={id + "/edit"}>Edit</Link>
+        </div>
       </div>
-      <div className="align-self-bottom px-3">
+      <div className="align-self-bottom px-3 pb-3">
+        <hr />
         <em className="card-text">{course.meets}</em>
-      </div>
-      <hr className="m-1" />
-      <div className="px-3 py-1 card-link">
-        <Link to={id + "/edit"}>Edit</Link>
       </div>
     </div>
   );
