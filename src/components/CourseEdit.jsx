@@ -4,6 +4,7 @@ import { useDbData, useDbUpdate } from "../utilities/firebase";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useFormData } from "../utilities/useFormData";
+import { useRef } from "react";
 
 const validateUserData = (key, val) => {
   switch (key) {
@@ -59,6 +60,10 @@ const CourseEdit = ({ data }) => {
   if (data != null) {
     let { id } = useParams();
     const course = data.courses[id];
+    const curCourse = useRef({
+      courseTitle: course.title,
+      courseMeets: course.meets,
+    });
 
     const [update, result] = useDbUpdate(`/courses/${id}`);
     const [state, change] = useFormData(validateUserData, {
@@ -68,6 +73,7 @@ const CourseEdit = ({ data }) => {
 
     const handleSubmmit = (evt) => {
       evt.preventDefault();
+      curCourse.current = state.values;
       update(state.values);
     };
 
@@ -92,7 +98,13 @@ const CourseEdit = ({ data }) => {
           state={state}
           change={change}
         />
-        <ButtonBar message={result?.message} disabled={state.errors} />
+        <ButtonBar
+          message={result?.message}
+          disabled={
+            state.errors ||
+            JSON.stringify(state.values) == JSON.stringify(curCourse.current)
+          }
+        />
       </Form>
     );
   }
