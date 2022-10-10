@@ -1,5 +1,7 @@
 import "./CourseCard.css";
 
+import { Link } from "react-router-dom";
+
 const CourseCard = ({ id, course, selected, toggleSelected, conflicts }) => {
   return (
     <div
@@ -14,9 +16,12 @@ const CourseCard = ({ id, course, selected, toggleSelected, conflicts }) => {
         </h3>
         <p className="card-text">{course.title}</p>
       </div>
-      <div className="align-self-bottom p-2">
-        <hr />
-        <p className="card-text">{course.meets}</p>
+      <div className="align-self-bottom px-3">
+        <em className="card-text">{course.meets}</em>
+      </div>
+      <hr className="m-1" />
+      <div className="px-3 py-1 card-link">
+        <Link to={id + "/edit"}>Edit</Link>
       </div>
     </div>
   );

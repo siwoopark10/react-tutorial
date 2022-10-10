@@ -5,10 +5,9 @@ import CourseList from "./CourseList";
 import Schedule from "./Schedule";
 import SelectedModal from "./SelectedModal";
 import TermSelector from "./TermSelector";
-import { useJsonQuery } from "../utilities/fetch";
 import { useState } from "react";
 
-const Planner = () => {
+const Planner = ({ data }) => {
   const [selection, setSelection] = useState("Fall");
   const [selected, setSelected] = useState([]);
   const [conflicts, setConflicts] = useState([]);
@@ -16,14 +15,6 @@ const Planner = () => {
 
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);
-
-  const url =
-    "https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php";
-  const [data, isLoading, error] = useJsonQuery([url]);
-
-  if (error) return <h1>Error loading user data: {`${error}`}</h1>;
-  if (isLoading) return <h1>Loading user data...</h1>;
-  if (!data) return <h1>No user data found</h1>;
 
   const toggleSelected = (course) => {
     if (selected.includes(course)) {
