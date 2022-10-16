@@ -61,14 +61,14 @@ const CourseEdit = ({ data }) => {
     let { id } = useParams();
     const course = data.courses[id];
     const curCourse = useRef({
-      courseTitle: course.title,
-      courseMeets: course.meets,
+      title: course.title,
+      meets: course.meets,
     });
 
     const [update, result] = useDbUpdate(`/courses/${id}`);
     const [state, change] = useFormData(validateUserData, {
-      courseTitle: course.title,
-      courseMeets: course.meets,
+      title: course.title,
+      meets: course.meets,
     });
 
     const handleSubmmit = (evt) => {
@@ -87,13 +87,13 @@ const CourseEdit = ({ data }) => {
           {course.term} CS {course.number}
         </h2>
         <InputField
-          name="courseTitle"
+          name="title"
           text="Course Title"
           state={state}
           change={change}
         />
         <InputField
-          name="courseMeets"
+          name="meets"
           text="Course Schedule"
           state={state}
           change={change}
