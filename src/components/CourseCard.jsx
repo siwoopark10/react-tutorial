@@ -2,7 +2,14 @@ import "./CourseCard.css";
 
 import { Link } from "react-router-dom";
 
-const CourseCard = ({ id, course, selected, toggleSelected, conflicts }) => {
+const CourseCard = ({
+  profile,
+  id,
+  course,
+  selected,
+  toggleSelected,
+  conflicts,
+}) => {
   return (
     <div
       className={`card m-1 p-2 ${selected.includes(id) ? "selected" : ""} ${
@@ -15,9 +22,11 @@ const CourseCard = ({ id, course, selected, toggleSelected, conflicts }) => {
           {course.term} CS {course.number}
         </h3>
         <p className="card-text">{course.title}</p>
-        <div className="card-link">
-          <Link to={id + "/edit"}>Edit</Link>
-        </div>
+        {profile?.isAdmin && (
+          <div className="card-link">
+            <Link to={id + "/edit"}>Edit</Link>
+          </div>
+        )}
       </div>
       <div className="align-self-bottom px-3 pb-3">
         <hr />

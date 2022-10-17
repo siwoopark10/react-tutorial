@@ -28,7 +28,7 @@ const AuthButton = () => {
 
 const activation = ({ isActive }) => (isActive ? "active" : "inactive");
 
-const Planner = ({ data }) => {
+const Planner = ({ profile, data }) => {
   if (data != null) {
     const [selection, setSelection] = useState("Fall");
     const [selected, setSelected] = useState([]);
@@ -72,6 +72,7 @@ const Planner = ({ data }) => {
           </button>
         </div>
         <CourseList
+          profile={profile}
           term={selection}
           courses={data.courses}
           selected={selected}
