@@ -12,10 +12,10 @@ const CourseCard = ({
 }) => {
   return (
     <div
+      data-cy="course"
       className={`card m-1 p-2 ${selected.includes(id) ? "selected" : ""} ${
         conflicts.includes(id) ? "conflict" : ""
       }`}
-      data-cy="course"
       onClick={() => !conflicts.includes(id) && toggleSelected(id)}
     >
       <div className="card-body pb-0">

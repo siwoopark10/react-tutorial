@@ -1,13 +1,21 @@
 import {
   GoogleAuthProvider,
+  connectAuthEmulator,
   getAuth,
   onAuthStateChanged,
+  signInWithCredential,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getDatabase, onValue, ref, update } from "firebase/database";
+import {
+  connectDatabaseEmulator,
+  getDatabase,
+  onValue,
+  ref,
+  update,
+} from "firebase/database";
 import { useCallback, useEffect, useState } from "react";
 
 import { initializeApp } from "firebase/app";
@@ -88,3 +96,19 @@ export const useAuthState = () => {
 
   return [user];
 };
+
+if (process.env.REACT_APP_EMULATE) {
+  const testFirebase = initializeApp(firebaseConfig);
+  const testDB = getDatabase(testFirebase);
+  const testAuth = getAuth(testFirebase);
+
+  connectAuthEmulator(testAuth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(testDB, "127.0.0.1", 9000);
+
+  signInWithCredential(
+    testAuth,
+    GoogleAuthProvider.credential(
+      '{"sub": "yn1v9ObY5KbWQ4x7D0AhVjkaiiwV", "email": "test@gmail.com", "displayName":"Test User", "email_verified": true}'
+    )
+  );
+}
